@@ -1,3 +1,4 @@
+import { register } from "@/actions/auth";
 import { db } from "@/db";
 
 export default async function Home() {
@@ -5,7 +6,11 @@ export default async function Home() {
   return (
     <main>
       <div>Hello world!</div>
-      <div>{JSON.stringify(user)}</div>
+      <form action={register}>
+        <input name="name" />
+        <input name="email" />
+        <button type="submit">Register</button>
+      </form>
     </main>
   );
 }
