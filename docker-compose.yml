@@ -79,6 +79,21 @@ services:
       timeout: 30s
       retries: 3
 
+  # MailPit for Email Testing
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: uknf-mailpit
+    ports:
+      - "1025:1025" # SMTP server
+      - "8025:8025" # Web UI
+    networks:
+      - uknf-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8025/api/v1/info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   # MinIO Client for bucket initialization
   minio-client:
     image: minio/mc:latest
