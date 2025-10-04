@@ -7,8 +7,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { register } from "@/actions/auth";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Shield, LogIn } from "lucide-react";
+import { login } from "@/actions/auth";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
@@ -17,19 +26,7 @@ export default function LoginPage() {
         {/* Project Header */}
         <div className="text-center">
           <div className="mx-auto h-12 w-12 bg-primary rounded-lg flex items-center justify-center">
-            <svg
-              className="h-8 w-8 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <Shield className="h-8 w-8 text-white" />
           </div>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             UKNF Communication System
@@ -49,30 +46,43 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form action={register} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                  required
-                />
-              </div>
+            <form action={login as any} className="space-y-4">
+              <FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor="email">Email Address</FieldLabel>
+                  <FieldContent>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="Enter your email address"
+                      required
+                    />
+                    <FieldDescription>
+                      Enter the email address associated with your account
+                    </FieldDescription>
+                  </FieldContent>
+                </Field>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  required
-                />
-              </div>
+                <Field>
+                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldContent>
+                    <Input
+                      id="password"
+                      name="password"
+                      type="password"
+                      placeholder="Enter your password"
+                      required
+                    />
+                    <FieldDescription>
+                      Enter your secure password
+                    </FieldDescription>
+                  </FieldContent>
+                </Field>
+              </FieldGroup>
 
               <Button type="submit" className="w-full">
+                <LogIn className="mr-2 h-4 w-4" />
                 Sign In
               </Button>
             </form>
@@ -87,12 +97,12 @@ export default function LoginPage() {
           </p>
           <p className="text-sm text-gray-600">
             Don't have an account?{" "}
-            <a
+            <Link
               href="/register"
               className="text-primary hover:underline font-medium"
             >
               Create one here
-            </a>
+            </Link>
           </p>
         </div>
       </div>

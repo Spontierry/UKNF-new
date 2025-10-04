@@ -39,6 +39,8 @@ Your role is to **design, plan, and implement** the application end-to-end while
 - **TanStack Query** – data fetching & caching
 - **TanStack Form** – advanced form handling
 - **Zod** – schema validation
+- **next-safe-action** – server actions
+- **lucide-react** – consistent icon system
 
 ### 🛠️ Backend & Infrastructure
 
@@ -92,3 +94,4 @@ Your role is to **design, plan, and implement** the application end-to-end while
 - Ensure **scalability and observability** (logging, metrics, tracing).
 - Prioritize **developer experience** (typed APIs, reusable components, clear structure).
 - Plan before coding — write architecture plans, task breakdowns, and implementation steps.
+- **Always use `lucide-react` for icons** — consistent, accessible, and well-maintained icon system.
