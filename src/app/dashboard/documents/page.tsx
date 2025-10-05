@@ -1,55 +1,9 @@
 import { redirect } from "next/navigation";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  FileText,
-  Upload,
-  Download,
-  Search,
-  Filter,
-  MoreVertical,
-} from "lucide-react";
-
-// Mock data - replace with actual API calls later
-const mockDocuments = [
-  {
-    id: "1",
-    name: "Q4 Financial Report.pdf",
-    size: "2.4 MB",
-    uploadedAt: "3 days ago",
-    type: "pdf",
-    status: "active",
-    downloads: 15,
-  },
-  {
-    id: "2",
-    name: "Compliance Checklist.xlsx",
-    size: "1.2 MB",
-    uploadedAt: "1 week ago",
-    type: "excel",
-    status: "active",
-    downloads: 8,
-  },
-  {
-    id: "3",
-    name: "Annual Report 2023.pdf",
-    size: "5.8 MB",
-    uploadedAt: "2 weeks ago",
-    type: "pdf",
-    status: "archived",
-    downloads: 23,
-  },
-  {
-    id: "4",
-    name: "Meeting Notes.docx",
-    size: "0.8 MB",
-    uploadedAt: "1 month ago",
-    type: "word",
-    status: "active",
-    downloads: 3,
-  },
-];
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FileUploadZone } from "@/components/file-upload/file-upload-zone";
+import { FileList } from "@/components/file-upload/file-list";
+import { Upload, FileText, Settings } from "lucide-react";
 
 export default async function DocumentsPage() {
   //const user = await getCurrentUser();
@@ -68,95 +22,97 @@ export default async function DocumentsPage() {
   }
 
   return (
-    <div className='space-y-6'>
-      <div className='flex items-center justify-between'>
-        <div>
-          <h1 className='text-3xl font-bold text-gray-900'>Documents</h1>
-          <p className='text-gray-600 mt-2'>Manage your files and documents</p>
-        </div>
-        <Button>
-          <Upload className='mr-2 h-4 w-4' />
-          Upload Document
-        </Button>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">Documents</h1>
+        <p className="text-gray-600 mt-2">
+          Manage your files and documents with secure upload and storage
+        </p>
       </div>
 
-      <div className='flex items-center space-x-4'>
-        <div className='flex-1'>
-          <div className='relative'>
-            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400' />
-            <input
-              type='text'
-              placeholder='Search documents...'
-              className='w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-            />
-          </div>
-        </div>
-        <Button variant='outline'>
-          <Filter className='mr-2 h-4 w-4' />
-          Filter
-        </Button>
-      </div>
+      <Tabs defaultValue="files" className="space-y-6">
+        <TabsList>
+          <TabsTrigger value="files" className="flex items-center space-x-2">
+            <FileText className="h-4 w-4" />
+            <span>My Files</span>
+          </TabsTrigger>
+          <TabsTrigger value="upload" className="flex items-center space-x-2">
+            <Upload className="h-4 w-4" />
+            <span>Upload</span>
+          </TabsTrigger>
+          <TabsTrigger value="settings" className="flex items-center space-x-2">
+            <Settings className="h-4 w-4" />
+            <span>Settings</span>
+          </TabsTrigger>
+        </TabsList>
 
-      <div className='grid gap-4'>
-        {mockDocuments.map((document) => (
-          <Card key={document.id} className='hover:shadow-md transition-shadow'>
-            <CardContent className='p-6'>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center space-x-4'>
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      document.type === "pdf"
-                        ? "bg-red-100"
-                        : document.type === "excel"
-                        ? "bg-green-100"
-                        : "bg-blue-100"
-                    }`}
-                  >
-                    <FileText
-                      className={`h-5 w-5 ${
-                        document.type === "pdf"
-                          ? "text-red-600"
-                          : document.type === "excel"
-                          ? "text-green-600"
-                          : "text-blue-600"
-                      }`}
-                    />
-                  </div>
-                  <div>
-                    <h3 className='font-medium text-lg'>{document.name}</h3>
-                    <p className='text-sm text-gray-600'>
-                      {document.size} • Uploaded {document.uploadedAt}
+        <TabsContent value="files" className="space-y-6">
+          <FileList />
+        </TabsContent>
+
+        <TabsContent value="upload" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Upload Files</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <FileUploadZone
+                maxFiles={10}
+                maxSize={100 * 1024 * 1024} // 100MB
+                allowedTypes={[
+                  "application/pdf",
+                  "application/msword",
+                  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                  "application/vnd.ms-excel",
+                  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                  "application/vnd.ms-powerpoint",
+                  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                  "text/plain",
+                  "text/csv",
+                  "image/jpeg",
+                  "image/png",
+                  "image/gif",
+                  "application/zip",
+                ]}
+              />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="settings" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>File Settings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-medium mb-2">Storage Information</h3>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p>• Files are stored securely in S3-compatible storage</p>
+                    <p>• Maximum file size: 100MB</p>
+                    <p>
+                      • Supported formats: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX,
+                      TXT, CSV, JPG, PNG, GIF, ZIP
                     </p>
-                    <p className='text-xs text-gray-500'>
-                      {document.downloads} downloads
-                    </p>
+                    <p>• All uploads are encrypted and access-controlled</p>
                   </div>
                 </div>
-                <div className='flex items-center space-x-3'>
-                  <Badge
-                    variant={
-                      document.status === "active"
-                        ? "default"
-                        : document.status === "archived"
-                        ? "secondary"
-                        : "outline"
-                    }
-                  >
-                    {document.status}
-                  </Badge>
-                  <Button size='sm' variant='outline'>
-                    <Download className='h-4 w-4 mr-1' />
-                    Download
-                  </Button>
-                  <Button size='sm' variant='ghost'>
-                    <MoreVertical className='h-4 w-4' />
-                  </Button>
+
+                <div>
+                  <h3 className="font-medium mb-2">Security Features</h3>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p>• Role-based access control</p>
+                    <p>• Audit logging for all file operations</p>
+                    <p>• Presigned URLs for secure downloads</p>
+                    <p>• Automatic cleanup of expired files</p>
+                  </div>
                 </div>
               </div>
             </CardContent>
           </Card>
-        ))}
-      </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

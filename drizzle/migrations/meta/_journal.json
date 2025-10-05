@@ -22,6 +22,13 @@
       "when": 1759624930687,
       "tag": "0002_slow_talon",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1759635765456,
+      "tag": "0003_reflective_quentin_quire",
+      "breakpoints": true
     }
   ]
 }
