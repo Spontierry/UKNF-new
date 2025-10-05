@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,27 +10,27 @@ import {
   Field,
   FieldContent,
   FieldDescription,
-  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { Shield, LogIn } from "lucide-react";
+import { Shield } from "lucide-react";
 import { login } from "@/actions/auth";
 import Link from "next/link";
+import { FormButton } from "@/components/ui/form-button";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
+      <div className='max-w-md w-full space-y-8'>
         {/* Project Header */}
-        <div className="text-center">
-          <div className="mx-auto h-12 w-12 bg-primary rounded-lg flex items-center justify-center">
-            <Shield className="h-8 w-8 text-white" />
+        <div className='text-center'>
+          <div className='mx-auto h-12 w-12 bg-primary rounded-lg flex items-center justify-center'>
+            <Shield className='h-8 w-8 text-white' />
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+          <h2 className='mt-6 text-3xl font-bold text-gray-900'>
             UKNF Communication System
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className='mt-2 text-sm text-gray-600'>
             Secure communication platform for Polish financial supervisory
             authority
           </p>
@@ -46,16 +45,16 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form action={login as any} className="space-y-4">
+            <form action={login as any} className='space-y-4'>
               <FieldGroup>
                 <Field>
-                  <FieldLabel htmlFor="email">Email Address</FieldLabel>
+                  <FieldLabel htmlFor='email'>Email Address</FieldLabel>
                   <FieldContent>
                     <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="Enter your email address"
+                      id='email'
+                      name='email'
+                      type='email'
+                      placeholder='Enter your email address'
                       required
                     />
                     <FieldDescription>
@@ -65,13 +64,13 @@ export default function LoginPage() {
                 </Field>
 
                 <Field>
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor='password'>Password</FieldLabel>
                   <FieldContent>
                     <Input
-                      id="password"
-                      name="password"
-                      type="password"
-                      placeholder="Enter your password"
+                      id='password'
+                      name='password'
+                      type='password'
+                      placeholder='Enter your password'
                       required
                     />
                     <FieldDescription>
@@ -81,25 +80,24 @@ export default function LoginPage() {
                 </Field>
               </FieldGroup>
 
-              <Button type="submit" className="w-full">
-                <LogIn className="mr-2 h-4 w-4" />
+              <FormButton iconName='log-in' loadingText='Signing In...'>
                 Sign In
-              </Button>
+              </FormButton>
             </form>
           </CardContent>
         </Card>
 
         {/* Footer Info */}
-        <div className="text-center space-y-2">
-          <p className="text-xs text-gray-500">
+        <div className='text-center space-y-2'>
+          <p className='text-xs text-gray-500'>
             This system enables structured, auditable communication between
             client organizations and the UKNF institution.
           </p>
-          <p className="text-sm text-gray-600">
+          <p className='text-sm text-gray-600'>
             Don't have an account?{" "}
             <Link
-              href="/register"
-              className="text-primary hover:underline font-medium"
+              href='/register'
+              className='text-primary hover:underline font-medium'
             >
               Create one here
             </Link>

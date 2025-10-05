@@ -10,7 +10,7 @@ export default async function Home() {
     headers: await headers(),
   });
 
-  if (!user) {
+  if (!user || !user.user.emailVerified) {
     return <Landing />;
   }
 

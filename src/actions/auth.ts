@@ -72,6 +72,8 @@ export const register = actionClient
         callbackURL: "/",
       },
     });
+
+    return redirect("/");
   });
 
 const LoginFormSchema = zfd.formData({
@@ -118,4 +120,6 @@ export const completeRegistration = actionClient
     });
 
     await changeRequestStatus(requestId, REQUEST_STATUS.DRAFT);
+
+    return redirect("/dashboard");
   });
