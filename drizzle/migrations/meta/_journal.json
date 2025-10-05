@@ -15,6 +15,13 @@
       "when": 1759617558282,
       "tag": "0001_complex_the_hand",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1759624930687,
+      "tag": "0002_slow_talon",
+      "breakpoints": true
     }
   ]
 }

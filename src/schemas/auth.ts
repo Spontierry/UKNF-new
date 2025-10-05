@@ -17,3 +17,11 @@ export const CreateUserSchema = z.object({
 });
 
 export type CreateUserSchema = z.infer<typeof CreateUserSchema>;
+
+export const CompleteRegistrationSchema = z.object({
+  newPassword: z.string().min(8, "Password must be at least 8 characters long"),
+});
+
+export type CompleteRegistrationSchema = z.infer<
+  typeof CompleteRegistrationSchema
+>;
