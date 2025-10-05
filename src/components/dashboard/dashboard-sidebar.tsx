@@ -16,25 +16,19 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UserWithProfile } from "@/types/user";
+import { USER_TYPE } from "@/schemas/auth";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  organizationId: string | null;
-  organizationName: string | null;
-  organizationType: string | null;
-}
+type Prop = {
+  userData: UserWithProfile;
+};
 
-interface DashboardSidebarProps {
-  user: User;
-}
-
-export function DashboardSidebar({ user }: DashboardSidebarProps) {
+export function DashboardSidebar({ userData }: Prop) {
   const pathname = usePathname();
-  const isAdmin = user.role === "admin";
-  const isUKNF = user.organizationType === "uknf";
+  const { user, profile } = userData;
+  const isAdmin =
+    profile.userType === USER_TYPE.SUPERVISED_ENTITY_ADMINISTRATOR;
+  const isUKNF = profile.userType === USER_TYPE.SUPERVISED_ENTITY_EMPLOYEE;
 
   const getNavigationItems = () => {
     const baseItems = [
@@ -112,12 +106,12 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
               <Link key={item.href} href={item.href}>
                 <Button
                   variant={isActive ? "default" : "ghost"}
-                  className="w-full justify-start h-auto p-3"
+                  className="w-full h-auto p-3"
                 >
-                  <div className="flex items-center space-x-3 w-full">
+                  <div className="flex items-center gap-3 w-full">
                     <item.icon className="h-4 w-4 flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
+                    <div className="flex flex-col flex-1 min-w-0">
+                      <div className="flex items-start">
                         <span className="text-sm font-medium truncate">
                           {item.label}
                         </span>
@@ -127,9 +121,7 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
                           </Badge>
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground truncate">
-                        {item.description}
-                      </p>
+                      <p className="text-xs truncate">{item.description}</p>
                     </div>
                   </div>
                 </Button>
